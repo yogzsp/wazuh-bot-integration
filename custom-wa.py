@@ -35,7 +35,7 @@ if int(alert_level) < 6 and "block" in title.lower():
     msg_data['msg'] = f'*WAZUH BLOCK NOTIFICATION*\n- *Title*: {title}\n- Level: {alert_level}\n- IP SRC: {target_ip}\n- Groups: {groups}\n- *Agent*: {agent_name} ({agent_id})\n\n{description}'
     # Mengirimkan permintaan ke server bot
     requests.post(hook_url, headers=headers, data=json.dumps(msg_data))
-elif int(alert_level) >= 6 and 'scp' not in groups.lower():
+elif int(alert_level) >= 6 and ('scp' not in groups.lower() and int(rule_id) != 203):
     msg_data['msg'] = f'*WAZUH ALERT NOTIFICATION*\n- *Title*: {title}\n- Level: {alert_level}\n- IP SRC: {target_ip}\n- Groups: {groups}\n- *Agent*: {agent_name} ({agent_id})\n\n{description}'
     # Mengirimkan permintaan ke server bot
     requests.post(hook_url, headers=headers, data=json.dumps(msg_data))
